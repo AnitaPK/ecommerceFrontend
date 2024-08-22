@@ -7,6 +7,8 @@ import RegisterPage from './pages/RegisterPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import useAuth from './hooks/useAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TestLogin from './pages/TestLogin';
+import TestRegister from './pages/TestRegister';
 
 function App() {
   const { user, token, login, logout } = useAuth();
@@ -18,9 +20,9 @@ function App() {
     <BrowserRouter>
       <Navbar user={user} logout={logout} token={token} />
       <Routes>
-        <Route path="/login" element={<LoginPage login={login} />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard" element={<ProtectedRoute token={token}><DashboardPage user={user} /></ProtectedRoute>} />
+        <Route path="/login" element={<TestLogin />} />
+        <Route path="/register" element={<TestRegister />} />
+        <Route path="/dashboard" element={<DashboardPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

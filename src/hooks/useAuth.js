@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import {jwtDecode} from 'jwt-decode';
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -10,9 +9,6 @@ const useAuth = () => {
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
-      const decodedUser = jwtDecode(token).user;  // Extract the user from the token
-      console.log(decodedUser);
-      setUser(decodedUser);  // Update the user state
     } else {
       localStorage.removeItem('token');
     }
