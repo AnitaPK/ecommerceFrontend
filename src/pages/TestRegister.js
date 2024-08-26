@@ -13,25 +13,19 @@ const TestRegister = () => {
     const Navigate = useNavigate();
 
 function register(payload){
-   
     try {
         const response = axios.post('http://localhost:5000/api/auth/register',payload);
         console.log(response.data);   
         Navigate('/login');
-    
     } catch (error) {
         console.log(error)
     }
 }
-
-
-
     function handleSubmit (event){
         event.preventDefault()
         const payload = {role,name,mobileNumber,email,password};
         register(payload)
     }
-
   return (
     <div>
         <form onSubmit={handleSubmit}>

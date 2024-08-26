@@ -1,9 +1,13 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../hooks/ThemeContext';
+import ThemeToggle from '../hooks/ThemeToggle';
+
 
 const Navbar = ({ user, logout, token }) => {
+  const {theme, toggleTheme} = useContext(ThemeContext);
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className={`navbar navbar-expand-lg ${theme === 'light' ? 'navbar-black bg-gray' : 'navbar-light bg-primary' }`}>
       <Link className="navbar-brand" to="/">MyApp</Link>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
@@ -27,6 +31,9 @@ const Navbar = ({ user, logout, token }) => {
             </>
           )}
         </ul>
+        <div className="my-2 my-lg-0">
+        <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
