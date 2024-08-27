@@ -1,29 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import DashboardPage from './pages/DashboardPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ProtectedRoute from './components/ProtectedRoute';
-import useAuth from './hooks/useAuth';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import TestLogin from './pages/TestLogin';
-import TestRegister from './pages/TestRegister';
+import Login from './pages/Login';
+import RegisterPage from './pages/Register';
+import { UserProvider } from './context/userContext';
+import DashboardAside from './pages/DashboardAside'
 
 function App() {
-  const { user, token, login, logout } = useAuth();
 
-  console.log('App user:', user);
-  console.log('App token:', token);
-
-  return (
+   return (
     <BrowserRouter>
-      <Navbar user={user} logout={logout} token={token} />
+    <UserProvider>
+
+      <Navbar />
       <Routes>
-        <Route path="/login" element={<TestLogin />} />
-        <Route path="/register" element={<TestRegister />} />
-        <Route path="/dashboard" element={<DashboardPage />}></Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard" element={<DashboardAside />}></Route>
       </Routes>
+    </UserProvider>
+
     </BrowserRouter>
   );
 }
