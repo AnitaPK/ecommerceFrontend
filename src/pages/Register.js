@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
     // State variables for each form field
-    const [role, setRole] = useState('commonUser'); // default role
+    const [role, setRole] = useState('commonUser'); 
     const [name, setName] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
     const [email, setEmail] = useState('');
