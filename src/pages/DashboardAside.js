@@ -5,6 +5,7 @@ import "./DashboardAside.css";
 import ProductList from "../components/Products/ProductList";
 import AddCategory from "../components/Category/AddCategory";
 import AddProduct from "../components/Products/AddProduct";
+import CategoryList from "../components/Category/CategoryList";
 
 const DashboardAside = () => {
   const { user, setUser } = useContext(UserContext);
@@ -55,7 +56,7 @@ const DashboardAside = () => {
         <div className="main-content">
           <Routes>
             <Route path="products" element={<ProductList/>} />
-            <Route path="category" element={<h1>Category</h1>} />
+            <Route path="category" element={<CategoryList />} />
             <Route path="cart" element={<h1>cart</h1>} />
             <Route path="addProduct" element={<AddProduct />} />
             <Route path="addCategory" element={<AddCategory />} />
