@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import RegisterPage from './pages/Register';
 import { UserProvider } from './context/userContext';
 import DashboardAside from './pages/DashboardAside'
+import Footer from './components/Footer';
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
         <Route path="/dashboard/*" element={<DashboardAside />}></Route>
       </Routes>
     </UserProvider>
-
+      <Footer />
     </BrowserRouter>
   );
 }

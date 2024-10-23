@@ -1,9 +1,9 @@
 // src/components/Navbar.js
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import authService from '../service/authService';
-import { UserContext } from '../context/userContext';
-import {useNavigate} from 'react-router-dom';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import authService from "../service/authService";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 
 function Navbar() {
@@ -14,7 +14,7 @@ function Navbar() {
   const handleLogout = () => {
     authService.logout();
     setUser(null);
-    navigate('/')
+    navigate("/");
   };
 
   return (
@@ -34,17 +34,29 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
           <ul className="navbar-nav">
             {user ? (
               <>
+                <li className="nav-item  d-flex align-items-center mr-2"></li>
                 <li className="nav-item  d-flex align-items-center mr-2">
-                <FaCartShopping />
-                </li><li className="nav-item  d-flex align-items-center mr-2">
-                  <span className="nav-link">{user.name}</span>
+                  {user.role == "admin" ? (
+                    <span className="nav-link">{user.name}</span>
+                  ) : (
+                    <>
+                      <FaCartShopping />{" "}
+                      <span className="nav-link">{user.name}</span>
+                    </>
+                  )}
                 </li>
                 <li className="nav-item">
-                  <button className="btn btn-link nav-link" onClick={handleLogout}>
+                  <button
+                    className="btn btn-link nav-link"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </button>
                 </li>

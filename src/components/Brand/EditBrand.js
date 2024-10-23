@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
-const EditCategory = ({
+const EditBrand = ({
   show,
   handleClose,
-  category,
-  handleCategoryUpdate,
+  brand,
+  handleBrandUpdate,
 }) => {
-  const [categoryName, setCategoryName] = useState(category.categoryName);
+  const [brandName, setBrandName] = useState(brand.brandName);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -21,18 +21,18 @@ const EditCategory = ({
     e.preventDefault();
     setLoading(true);
     try {
-        console.log(categoryName);
-        console.log(token);
+        // console.log(brandName);
+        // console.log(token);
       const response = await axios.put(
-        `http://localhost:5000/api/categories/updateCategory/${category._id}`,
-        { categoryName },
+        `http://localhost:5000/api/brand/updateBrand/${brand._id}`,
+        { brandName },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      handleCategoryUpdate(response.data);
+      handleBrandUpdate(response.data);
     } catch (error) {
       console.error("Error updating category:", error);
     } finally {
@@ -43,16 +43,16 @@ const EditCategory = ({
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Category</Modal.Title>
+        <Modal.Title>Edit Brand</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formCategoryName">
-            <Form.Label>Category Name</Form.Label>
+            <Form.Label>Brand Name</Form.Label>
             <Form.Control
               type="text"
-              value={category.name}
-              onChange={(e) => setCategoryName(e.target.value)}
+              value={brand.name}
+              onChange={(e) => setBrandName(e.target.value)}
               required
             />
           </Form.Group>
@@ -65,4 +65,4 @@ const EditCategory = ({
   );
 };
 
-export default EditCategory;
+export default EditBrand;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddCategory = () => {
+const AddBrand = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
 
@@ -19,7 +19,7 @@ const AddCategory = () => {
 
     try {
       await axios.post(
-        'http://localhost:5000/api/categories/createCategory',
+        'http://localhost:5000/api/brand/createBrand',
         { name, image },
         {
           headers: {
@@ -46,25 +46,25 @@ const AddCategory = () => {
 
   return (
     <div className="container">
-      <h2>Add Category</h2>
+      <h2>Add Brand</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="categoryName">Category Name</label>
+          <label htmlFor="brandName">Brand Name</label>
           <input
             type="text"
             className="form-control"
-            id="categoryName"
+            id="brandName"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="productImage">Category Image</label>
+          <label htmlFor="brandImage">Brand Image</label>
           <input
             type="file"
             className="form-control"
-            id="productImage"
+            id="brandImage"
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
@@ -100,11 +100,11 @@ const AddCategory = () => {
         )}
 
         <button type="submit" className="btn btn-primary mt-3">
-          Add Category
+          Add Brand
         </button>
       </form>
     </div>
   );
 };
 
-export default AddCategory;
+export default AddBrand;

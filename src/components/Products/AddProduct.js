@@ -5,29 +5,48 @@ const AddProduct = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState('');
+  const [description, setdescription] = useState('');
   const [price, setPrice] = useState('');
   const [available, setAvailable] = useState(true);
   const [quantity, setQuantity] = useState('');
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [brands, setBrands] = useState([])
+  const [brand, setBrand] = useState([])
+
+
+  const fetchCategories = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('http://localhost:5000/api/categories/getAllCategory',{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }});
+      // console.log(response.data)
+      setCategories(response.data.categories);
+    } catch (err) {
+      setError('Error fetching categories');
+    }
+  };
+
+  const fetchBrands = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('http://localhost:5000/api/brand/getAllBrand',{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }});
+      console.log(response.data)
+      setBrands(response.data.brands);
+    } catch (err) {
+      setError('Error fetching brand');
+    }
+  };
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const token = localStorage.getItem('token');
-      try {
-        const response = await axios.get('http://localhost:5000/api/categories/getAllCategory',{
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }});
-        console.log(response.data)
-        setCategories(response.data.categories);
-      } catch (err) {
-        setError('Error fetching categories');
-      }
-    };
-
     fetchCategories();
+    fetchBrands()
   }, []);
 
   const handleSubmit = async (e) => {
@@ -41,12 +60,15 @@ const AddProduct = () => {
 
     const formData = new FormData();
     formData.append('name', name);
+    formData.append('brand',brand);
     formData.append('image', image);
     formData.append('category', category);
+    formData.append('description', description)
     formData.append('price', price);
     formData.append('available', available);
     formData.append('quantity', quantity);
 
+console.log(formData)
     try {
       await axios.post('http://localhost:5000/api/products/createProduct', formData, {
         headers: {
@@ -54,11 +76,13 @@ const AddProduct = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+// console.log(formData);
       setSuccess('Product added successfully!');
       setName('');
-      setImage(null);
+      setBrand('')
+      setImage('');
       setCategory('');
+      setdescription('');
       setPrice('');
       setAvailable(true);
       setQuantity('');
@@ -91,6 +115,24 @@ const AddProduct = () => {
         </div>
 
         <div className="form-group">
+          <label htmlFor="productBrand">Brand</label>
+          <select
+            className="form-control"
+            id="productBrand"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            required
+          >
+            <option >Select a Brand</option>
+            {brands.map((brnd) => (
+              <option key={brnd._id} value={brnd._id}>
+                {brnd.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
           <label htmlFor="productImage">Product Image</label>
           <input
             type="file"
@@ -117,7 +159,19 @@ const AddProduct = () => {
             ))}
           </select>
         </div>
-
+        <div className="form-group">
+          <label htmlFor="productDescription">Discription</label>
+          <input
+            type="text"
+            className="form-control"
+            id="productDescription"
+            value={description}
+            onChange={(e) => setdescription(e.target.value)}
+            required
+          >
+          </input>
+        </div>
+        
         <div className="form-group">
           <label htmlFor="productPrice">Price</label>
           <input

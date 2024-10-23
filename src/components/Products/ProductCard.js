@@ -8,24 +8,19 @@ const ProductCard = ({ product, onProductUpdated, onProductDeleted }) => {
 
   return (
     <div className="card mb-3">
-      <img src={product.image} className="card-img-top" alt={product.name} />
+      <img src={product.productImage || 'https://via.placeholder.com/100'} className="card-img-top" style={{height:"200px"}} alt={product.name} />
       <div className="card-body">
-        <h5 className="card-title">{product.name}</h5>
-        <p className="card-text">Category: {product.category.name}</p>
-        <p className="card-text">Price: ${product.price}</p>
-        <p className="card-text">Available: {product.available ? 'Yes' : 'No'}</p>
-        <p className="card-text">Quantity: {product.quantity}</p>
+        <h6 className="card-title">{product.name}</h6>
+        <p className="card-text">Category:<b> {product.category?.name || 'N/A'}</b></p>
+        <p className="card-text">Brand: <b>{product.brand?.name || 'N/A'}</b></p>
+        <p className="card-text">Price: <b>${product.price}</b></p>
+        <p className="card-text">Available: <b>{product.availability ? 'Yes' : 'No'}</b></p>
+        <p className="card-text">Quantity: <b>{product.quantity}</b></p>
 
-        <button
-          className="btn btn-warning mr-2"
-          onClick={() => setShowEditModal(true)}
-        >
+        <button className="btn btn-warning me-2" onClick={() => setShowEditModal(true)}>
           Edit
         </button>
-        <button
-          className="btn btn-danger"
-          onClick={() => setShowDeleteModal(true)}
-        >
+        <button className="btn btn-danger" onClick={() => setShowDeleteModal(true)}>
           Delete
         </button>
 
